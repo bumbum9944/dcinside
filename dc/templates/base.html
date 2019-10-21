@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SSAFY 갤러리</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/e87731a046.js" crossorigin="anonymous"></script>
+  <style>
+    .navbar-brand  {
+      position: relative;
+      left: -200px;
+      top: 0;
+    }
+    body {
+      font-family: '굴림';
+    }
+  </style>
+  <link rel="shortcut icon" href="https://nstatic.dcinside.com/dc/w/images/logo_icon.ico">
+</head>
+<body>
+  <div class="d-flex justify-content-center m-3">
+    <a class="navbar-brand" href="{% url 'posts:index' %}"><img src="https://nstatic.dcinside.com/dc/w/images/dcin_logo.png" alt="디시"></a>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4A56A8;">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <form class="form-inline" action="{% url 'posts:search' %}">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name='search'>
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+      </div>
+    </nav>
+  </div>
+  <div class="py-3 px-5" style="background-color: #4A56A8; font-weight: bold;">
+    {% if request.user.is_authenticated %}
+    <a class="text-warning ml-5" href="{% url 'posts:create' %}">새 글 작성</a>
+    <a class="text-light mx-1" href="{% url 'accounts:logout' %}">logout</a>
+    {% else %}
+    <a class="text-light ml-5" href="{% url 'accounts:signup' %}">signup</a>
+    <a class="text-light mx-1" href="{% url 'accounts:login' %}">login</a>
+    {% endif %}
+  </div>
+  <div class="m-2" style="width: 150px;">
+    <a href="https://lineagem.plaync.com/">
+      <img src="https://tpc.googlesyndication.com/simgad/7302563244461929925?sqp=4sqPyQQ7QjkqNxABHQAAtEIgASgBMAk4A0DwkwlYAWBfcAKAAQGIAQGdAQAAgD-oAQGwAYCt4gS4AV_FAS2ynT4&rs=AOga4qmlm_AUpJYzszTfiGzIQ_cD0RFbLg" alt="" style="position: fixed; left: 150px;">
+    </a>
+  </div>
+  <div class="container">
+    {% block body %}
+    {% endblock %}
+  </div>
+  <a href="https://lineagem.plaync.com/">
+    <img src="https://tpc.googlesyndication.com/simgad/12228884216589027432?sqp=4sqPyQQ7QjkqNxABHQAAtEIgASgBMAk4A0DwkwlYAWBfcAKAAQGIAQGdAQAAgD-oAQGwAYCt4gS4AV_FAS2ynT4&rs=AOga4qlHknxcjsJnK-MXPUv0UGai92Z0KQ" alt="" style="position: absolute; right: 70px; top: 150px;">
+  </a>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  
+</body>
+</html>

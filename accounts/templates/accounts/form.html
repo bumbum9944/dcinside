@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+  <div class="border p-5" style="border-color: #4A56A8; position: relative; top: 150px;">
+    <form action="" method='post'>
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <input type="submit">
+    </form>
+  </div>
+{% endblock %}

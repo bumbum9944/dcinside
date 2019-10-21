@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+  <h3 class="mt-4" style="color: #4A56A8; font-weight: bold;">SSAFY 갤러리</h3>
+
+  <table class="table my-3">
+    <thead>
+      <tr>
+        <th scope="col">{{post.title}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{post.user}} | {{post.edit_time}}</td>
+      </tr>
+      <tr>
+        <td>{{post.content}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="mb-3" style="border-color: #4A56A8; border-width: 2px;">
+
+  {% for comment in post.comment_set.all %}
+    <div class="d-inline-flex align-items-center my-1">
+      <div style="width: 130px;">{{comment.user}}</div>
+      <div class="d-flex justify-content-between align-items-center" style="width: 955px;">
+        <div>{{comment.content}}</div>
+        {% if comment.user == request.user %}
+          <form action="{% url 'posts:comment_delete' post.id comment.id %}" method="POST">
+            {% csrf_token %}
+            <input class="btn text-light mx-1" style="background-color: #4A56A8;" type="submit" value="삭제">
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+
+  <hr class="mb-3" style="border-color: #4A56A8; border-width: 2px;">
+
+  <form action="{% url 'posts:comment_create' post.id %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form comment_form %}
+    <div class="d-flex flex-row-reverse">
+    <input class="btn text-light mx-1" style="background-color: #4A56A8;" type="submit" value="등록">
+    </div>
+  </form>
+
+  <hr class="mb-3" style="border-color: #4A56A8; border-width: 2px;">
+
+  <div class="d-flex flex-row-reverse">
+    <a href="{% url 'posts:create' %}" class="btn text-light mx-1" style="background-color: #4A56A8;">글쓰기</a>
+    {% if post.user == request.user %}
+      <a class="btn text-light mx-1" style="background-color: #4A56A8;" href="{% url 'posts:update' post.id %}">수정</a>
+      <form action="{% url 'posts:delete' post.id %}" method='post'>
+        {% csrf_token %}
+        <input class="btn text-light mx-1" style="background-color: #4A56A8;" type="submit" value="삭제">
+      </form>
+    {% endif %}
+  </div>
+
+  <table class="table mt-5 table-sm">
+    <thead>
+      <tr>
+        <th scope="col">번호</th>
+        <th scope="col">제목</th>
+        <th scope="col">글쓴이</th>
+        <th scope="col">작성일</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in posts %}
+      <tr>
+        <th scope="row">{{post.id}}</th>
+        <td><a class="text-dark" href="{% url 'posts:detail' post.id %}">{{post.title}}</a></td>
+        <td>{{post.user}}</td>
+        <td>{{post.date}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <div class="d-flex flex-row-reverse mb-3">
+    <a href="{% url 'posts:create' %}" class="btn text-light" style="background-color: #4A56A8;">글쓰기</a>
+  </div>
+{% endblock %}

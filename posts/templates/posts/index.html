@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+  <h3 class="mt-4" style="color: #4A56A8; font-weight: bold;">SSAFY 갤러리</h3>
+  <a href="https://gall.dcinside.com/board/lists/?id=tree">
+    <img src="{% static 'deco.jpg' %}" alt="">
+  </a>
+  <table class="table mt-5">
+    <thead>
+      <tr>
+        <th scope="col">번호</th>
+        <th scope="col">제목</th>
+        <th scope="col">글쓴이</th>
+        <th scope="col">작성일</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in posts %}
+      <tr>
+        <th scope="row">{{post.id}}</th>
+        <td><a class="text-dark" href="{% url 'posts:detail' post.id %}">{{post.title}} [{{post.comment_set.count}}]</a></td>
+        <td>{{post.user}}</td>
+        <td>{{post.date|date:'Y.m.d'}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="d-flex flex-row-reverse mb-3">
+    <a href="{% url 'posts:create' %}" class="btn text-light" style="background-color: #4A56A8;">글쓰기</a>
+  </div>
+{% endblock %}
