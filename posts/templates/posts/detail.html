@@ -19,7 +19,12 @@
       </tr>
     </tbody>
   </table>
-
+  <div class="d-flex justify-content-center align-items-center">
+    <p class="mx-1">{{ post.like_users.count }}</p>
+    <a href="{% url 'posts:like' post.id %}" class="btn text-light mx-1 rounded-circle d-flex align-items-center" style="background-color: #4A56A8; width: 60px; height: 60px;" type="submit">개념</a>
+    <a href="{% url 'posts:hate' post.id %}" class="btn text-light mx-1 rounded-circle d-flex align-items-center" style="background-color: gray; width: 60px; height: 60px;" type="submit">비추</a>
+    <p class="mx-1">{{ post.hate_users.count }}</p>
+  </div>
   <hr class="mb-3" style="border-color: #4A56A8; border-width: 2px;">
 
   {% for comment in post.comment_set.all %}

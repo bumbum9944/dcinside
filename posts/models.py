@@ -11,6 +11,9 @@ class Post(models.Model):
     edit_time = models.DateField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_posts")
+    hate_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="hate_posts")
+
 
 
 class Comment(models.Model):

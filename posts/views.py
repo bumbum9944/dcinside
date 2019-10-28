@@ -103,3 +103,20 @@ def search(request):
     }
     return render(request, 'posts/index.html', context)
     
+def like(request, id):
+    post = get_object_or_404(Post, id=id)
+    user = request.user
+    if post.like_users.filter(id=user.id):
+        post.like_users.remove(user)
+    else:
+        post.like_users.add(user)
+    return redirect('posts:detail', id)
+
+def hate(request, id):
+    post = get_object_or_404(Post, id=id)
+    user = request.user
+    if post.hate_users.filter(id=user.id):
+        post.hate_users.remove(user)
+    else:
+        post.hate_users.add(user)
+    return redirect('posts:detail', id)
