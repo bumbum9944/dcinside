@@ -5,6 +5,7 @@ from django.conf import settings
 
 
 class Post(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
     content = models.TextField()
     date = models.DateField(auto_now=True)
@@ -17,6 +18,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     content = models.CharField(max_length=100)
